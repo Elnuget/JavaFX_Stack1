@@ -1,3 +1,6 @@
+UDLA
+CARLOS ANGULO
+
 # Gestor de Pila de Publicaciones - JavaFX
 
 Este proyecto implementa una interfaz gráfica con JavaFX para gestionar una pila de publicaciones usando la estructura de datos Stack.
@@ -94,5 +97,3 @@ La pila implementa el principio LIFO (Last In, First Out):
 - `tamano()` - Retorna el número de elementos en la pila
 - `limpiar()` - Elimina todos los elementos de la pila
 - `toString()` - Retorna una representación textual de toda la pila
-
-¡Disfruta usando el Gestor de Pila de Publicaciones!
