@@ -1,18 +1,18 @@
 package model;
 
 public class Publicacion {
-    private String codigo;
+    private int codigo;
     private String titulo;
     private String mensaje;
     
-    public Publicacion(String codigo, String titulo, String mensaje) {
+    public Publicacion(int codigo, String titulo, String mensaje) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.mensaje = mensaje;
     }
     
     // Getters
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
     
@@ -25,7 +25,7 @@ public class Publicacion {
     }
     
     // Setters
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
     

@@ -44,17 +44,45 @@ public class PilaController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         pila = new Pila();
         actualizarVisualizacion();
+        
+        // Agregar validación al campo código para que solo acepte números
+        txtCodigo.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtCodigo.setText(newValue.replaceAll("[^\\d]", ""));
+                mostrarAlerta("Error de Validación", 
+                             "El código solo puede contener números enteros.", 
+                             Alert.AlertType.WARNING);
+            }
+        });
     }
     
     @FXML
     private void apilarPublicacion() {
         try {
-            String codigo = txtCodigo.getText().trim();
+            String codigoTexto = txtCodigo.getText().trim();
             String titulo = txtTitulo.getText().trim();
             String mensaje = txtMensaje.getText().trim();
             
-            if (codigo.isEmpty() || titulo.isEmpty() || mensaje.isEmpty()) {
+            if (codigoTexto.isEmpty() || titulo.isEmpty() || mensaje.isEmpty()) {
                 mostrarAlerta("Error", "Todos los campos son obligatorios", Alert.AlertType.ERROR);
+                return;
+            }
+            
+            // Validar que el código sea un número válido
+            int codigo;
+            try {
+                codigo = Integer.parseInt(codigoTexto);
+                if (codigo <= 0) {
+                    mostrarAlerta("Error de Validación", 
+                                 "El código debe ser un número entero positivo.", 
+                                 Alert.AlertType.ERROR);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                mostrarAlerta("Error de Validación", 
+                             "El código debe ser un número entero válido.\n" +
+                             "Por favor, introduce solo números.", 
+                             Alert.AlertType.ERROR);
                 return;
             }
             
