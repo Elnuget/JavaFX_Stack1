@@ -1,158 +1,198 @@
-# JavaFX Stack Manager - UDLA
-**Autor: Carlos Angulo**
+# Tutorial: Crear un Gestor de Pilas con JavaFX
+**Autor: Carlos Angulo - UDLA**
 
-## Descripción
-Aplicación JavaFX que implementa un gestor de pila de publicaciones utilizando el patrón MVC (Model-View-Controller) con FXML para la separación de la interfaz de usuario y la lógica de negocio.
+## ¿Qué vamos a crear?
+Una aplicación con ventanas que gestiona una "pila" de publicaciones. Una pila es como una torre de platos: el último que pones es el primero que sacas.
 
-## Estructura del Proyecto
+---
 
-### Estructura de paquetes:
-- **`PilaGUI.java`** - Clase principal que inicia la aplicación (paquete raíz)
-- **`controller/PilaController.java`** - Controlador que maneja la lógica de la interfaz
-- **`view/PilaView.fxml`** - Vista FXML que define la estructura visual
-- **`model/Pila.java`** - Modelo que implementa la estructura de datos pila
-- **`model/Publicacion.java`** - Modelo que representa una publicación
+## PASO 1: Configurar JavaFX (¡Muy Importante!)
 
-### Arquitectura MVC con FXML:
+### Descargar JavaFX
+1. Ve a https://openjfx.io/
+2. Descarga **JavaFX SDK 21** (o la versión más reciente)
+3. Guárdalo en una carpeta fácil de recordar, por ejemplo: `C:\javafx-sdk-21\`
 
-**Model (Modelo) - Paquete `model`:**
-- `model/Pila.java`: Gestiona las operaciones de la pila (apilar, desapilar, ver tope, etc.)
-- `model/Publicacion.java`: Representa los objetos que se almacenan en la pila
+### Configurar IntelliJ IDEA
+1. **File** → **Project Structure** (Ctrl+Alt+Shift+S)
+2. Ir a **Libraries** → clic en **+** → **Java**
+3. Buscar la carpeta `lib` dentro de JavaFX (ej: `C:\javafx-sdk-21\lib`)
+4. Seleccionar **todos** los archivos .jar
+5. Clic **OK**
 
-**View (Vista) - Paquete `view`:**
-- `view/PilaView.fxml`: Define la interfaz gráfica usando XML declarativo
-
-**Controller (Controlador) - Paquete `controller`:**
-- `controller/PilaController.java`: Conecta la vista con el modelo, maneja eventos y actualiza la interfaz
-
-## Características
-
-La aplicación permite:
-- **Apilar**: Agregar nuevas publicaciones a la pila
-- **Desapilar**: Remover y mostrar la publicación del tope
-- **Ver Tope**: Visualizar la publicación en el tope sin removerla
-- **Limpiar**: Vaciar completamente la pila
-- **Visualización**: Ver el estado completo de la pila en tiempo real
-
-## Archivos del Proyecto
-
-- `Publicacion.java` - Clase que representa una publicación con código, título y mensaje
-- `Pila.java` - Implementación de la estructura de datos pila para publicaciones
-- `PilaGUI.java` - Interfaz gráfica principal con JavaFX
-
-## Configuración de JavaFX
-
-### Opción 1: Usando IntelliJ IDEA
-1. Ve a File → Project Structure → Libraries
-2. Agrega JavaFX SDK (descárgalo desde https://openjfx.io/)
-3. En Run Configuration, agrega los módulos VM options:
+### Configurar la Ejecución
+1. **Run** → **Edit Configurations**
+2. Crear nueva **Application**
+3. **Main class**: `PilaGUI`
+4. **VM options**: 
    ```
-   --module-path "path/to/javafx/lib" --add-modules javafx.controls,javafx.fxml
+   --module-path "C:\javafx-sdk-21\lib" --add-modules javafx.controls,javafx.fxml
    ```
+   (Cambiar la ruta por donde instalaste JavaFX)
 
-### Opción 2: Usando Eclipse
-1. Descarga JavaFX SDK desde https://openjfx.io/
-2. Agrega las librerías JAR al Build Path del proyecto
-3. En Run Configuration → Arguments, agrega:
-   ```
-   --module-path "path/to/javafx/lib" --add-modules javafx.controls,javafx.fxml
-   ```
+---
 
-### Opción 3: Sin módulos (más simple)
-Si tienes problemas con módulos, puedes:
-1. Eliminar el archivo `module-info.java`
-2. Asegurarte de que JavaFX esté en el classpath
-3. Ejecutar directamente la clase `PilaGUI`
+## PASO 2: Crear la Estructura de Carpetas
 
-## Ejecución
-
-Una vez configurado JavaFX:
-1. Compila el proyecto
-2. Ejecuta la clase `PilaGUI` 
-3. La aplicación abrirá una ventana con la interfaz gráfica
-
-## Funcionalidades de la Interfaz
-
-### Panel de Nueva Publicación
-- **Código**: Campo para el identificador único de la publicación
-- **Título**: Campo para el título de la publicación  
-- **Mensaje**: Área de texto para el contenido de la publicación
-
-### Panel de Operaciones
-- **Apilar Publicación**: Agrega una nueva publicación a la pila
-- **Desapilar**: Remueve la publicación del tope y la muestra
-- **Ver Tope**: Muestra la publicación del tope sin removerla
-- **Limpiar Pila**: Vacía completamente la pila
-
-### Panel de Contenido de la Pila
-- Muestra todas las publicaciones en la pila
-- Visualización desde el tope hacia la base
-- Formato de texto simple y legible
-
-### Panel de Estado
-- Indica si la pila está vacía o contiene elementos
-- Muestra el número total de elementos en la pila
-
-## Ventajas del uso de FXML
-
-### Separación de responsabilidades:
-- **Vista**: Definida completamente en XML (PilaView.fxml)
-- **Lógica**: Concentrada en el controlador Java (PilaController.java)
-- **Modelo**: Independiente de la interfaz (Pila.java, Publicacion.java)
-
-### Beneficios:
-1. **Mantenimiento más fácil**: Cambios visuales sin tocar código Java
-2. **Diseño declarativo**: Interfaz más clara y legible
-3. **Reutilización**: Componentes pueden ser reutilizados
-4. **Colaboración**: Diseñadores pueden trabajar en FXML independientemente
-5. **Herramientas**: Compatible con Scene Builder para diseño visual
-
-## Validaciones
-
-- Todos los campos (código, título, mensaje) son obligatorios
-- Alertas informativas para operaciones exitosas
-- Confirmaciones para operaciones destructivas
-- Manejo de excepciones para operaciones en pila vacía
-
-## Estructura de archivos organizada por paquetes
 ```
 src/
-├── PilaGUI.java              # Clase principal (Application)
-├── module-info.java          # Configuración de módulos JavaFX
+├── PilaGUI.java              # Archivo principal
 ├── controller/
-│   └── PilaController.java   # Controlador MVC con @FXML
+│   └── PilaController.java   # Controla los botones
 ├── view/
-│   └── PilaView.fxml         # Definición XML de la interfaz
+│   └── PilaView.fxml         # Diseño de la ventana
 └── model/
-    ├── Pila.java             # Modelo de la pila
-    └── Publicacion.java      # Modelo de publicación
+    ├── Pila.java             # La pila de datos
+    └── Publicacion.java      # Cada elemento de la pila
 ```
 
-## Beneficios de la organización por paquetes
+---
 
-✅ **Separación clara de responsabilidades por capas**
-✅ **Código más mantenible y escalable**  
-✅ **Facilita el trabajo en equipo**
-✅ **Estructura estándar de la industria**
-✅ **Mejor encapsulamiento**
-✅ **Facilita pruebas unitarias por capa**
-- Alertas de error para operaciones inválidas (ejemplo: desapilar pila vacía)
-- Confirmación antes de limpiar la pila completamente
+## PASO 3: Crear las Clases (en este orden)
 
-## Estructura de Datos
+### 1. Crear `Publicacion.java` (en carpeta model/)
+```java
+package model;
 
-La pila implementa el principio LIFO (Last In, First Out):
-- La última publicación agregada es la primera en ser removida
-- Se puede ver el tope sin remover el elemento
-- Se mantiene un contador automático del tamaño de la pila
-- Usa internamente la clase Stack de Java para el almacenamiento
+public class Publicacion {
+    private int codigo;
+    private String titulo;
+    private String mensaje;
+    
+    // Constructor
+    public Publicacion(int codigo, String titulo, String mensaje) {
+        this.codigo = codigo;
+        this.titulo = titulo;
+        this.mensaje = mensaje;
+    }
+    
+    // Getters y Setters
+    public int getCodigo() { return codigo; }
+    public String getTitulo() { return titulo; }
+    public String getMensaje() { return mensaje; }
+    
+    @Override
+    public String toString() {
+        return "Código: " + codigo + "\nTítulo: " + titulo + "\nMensaje: " + mensaje;
+    }
+}
+```
 
-## Clase Pila - Métodos Principales
+### 2. Crear `Pila.java` (en carpeta model/)
+```java
+package model;
+import java.util.Stack;
 
-- `estaVacia()` - Verifica si la pila está vacía
-- `apilar(Publicacion)` - Agrega una publicación al tope
-- `desapilar()` - Remueve y retorna la publicación del tope
-- `verTope()` - Retorna la publicación del tope sin removerla
-- `tamano()` - Retorna el número de elementos en la pila
-- `limpiar()` - Elimina todos los elementos de la pila
-- `toString()` - Retorna una representación textual de toda la pila
+public class Pila {
+    private Stack<Publicacion> pila;
+    
+    public Pila() {
+        pila = new Stack<>();
+    }
+    
+    public void apilar(Publicacion pub) { pila.push(pub); }
+    public Publicacion desapilar() { return pila.pop(); }
+    public boolean estaVacia() { return pila.isEmpty(); }
+    public int tamano() { return pila.size(); }
+    // ... más métodos
+}
+```
+
+### 3. Crear `PilaView.fxml` (en carpeta view/)
+Este archivo define cómo se ve la ventana (botones, campos de texto, etc.)
+
+### 4. Crear `PilaController.java` (en carpeta controller/)
+Controla qué pasa cuando haces clic en los botones.
+
+### 5. Crear `PilaGUI.java` (archivo principal)
+```java
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class PilaGUI extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("view/PilaView.fxml"));
+        primaryStage.setTitle("Gestor de Pilas");
+        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.show();
+    }
+    
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+---
+
+## PASO 4: Funcionalidades
+
+### ✅ Lo que hace la aplicación:
+- **Apilar**: Agregar una nueva publicación arriba de la pila
+- **Desapilar**: Sacar la publicación de arriba
+- **Ver Tope**: Ver qué hay arriba sin sacarlo
+- **Limpiar**: Vaciar toda la pila
+
+### ⚠️ Validaciones incluidas:
+- El código solo acepta **números enteros**
+- Si escribes letras, se borran automáticamente
+- Todos los campos son obligatorios
+- Alertas cuando algo sale mal
+
+---
+
+## PASO 5: Ejecutar el Proyecto
+
+1. **Compilar**: Build → Build Project
+2. **Ejecutar**: Run → Run 'PilaGUI'
+3. Si hay errores, revisar que JavaFX esté bien configurado
+
+### Problemas Comunes:
+- **"Module not found"**: Revisar VM options
+- **"JavaFX runtime components are missing"**: Revisar que JavaFX esté en Libraries
+- **Error al cargar FXML**: Verificar que el archivo .fxml esté en la carpeta correcta
+
+---
+
+## PASO 6: Probar la Aplicación
+
+1. **Llenar los campos**: Código (número), Título, Mensaje
+2. **Clic en "Apilar"**: Agrega la publicación
+3. **Ver el resultado**: Aparece en el panel derecho
+4. **Probar otras funciones**: Desapilar, Ver Tope, Limpiar
+
+---
+
+## ¿Cómo funciona por dentro?
+
+### Patrón MVC:
+- **Model** (Pila, Publicacion): Los datos
+- **View** (PilaView.fxml): Lo que ves en pantalla
+- **Controller** (PilaController): Une los datos con la pantalla
+
+### Concepto de Pila:
+- **LIFO**: Last In, First Out (el último que entra, primero sale)
+- Como una torre de platos: solo puedes agregar o sacar del tope
+
+---
+
+## Archivos Finales del Proyecto
+
+```
+📁 JavaFX_Stack1/
+├── 📄 README.md
+├── 📄 CONFIGURACION_JAVAFX.md
+└── 📁 src/
+    ├── 📄 PilaGUI.java
+    ├── 📁 controller/
+    │   └── 📄 PilaController.java
+    ├── 📁 view/
+    │   └── 📄 PilaView.fxml
+    └── 📁 model/
+        ├── 📄 Pila.java
+        └── 📄 Publicacion.java
+```
