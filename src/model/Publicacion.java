@@ -1,3 +1,5 @@
+package model;
+
 public class Publicacion {
     private String codigo;
     private String titulo;

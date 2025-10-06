@@ -1,9 +1,29 @@
-UDLA
-CARLOS ANGULO
+# JavaFX Stack Manager - UDLA
+**Autor: Carlos Angulo**
 
-# Gestor de Pila de Publicaciones - JavaFX
+## Descripción
+Aplicación JavaFX que implementa un gestor de pila de publicaciones utilizando el patrón MVC (Model-View-Controller) con FXML para la separación de la interfaz de usuario y la lógica de negocio.
 
-Este proyecto implementa una interfaz gráfica con JavaFX para gestionar una pila de publicaciones usando la estructura de datos Stack.
+## Estructura del Proyecto
+
+### Estructura de paquetes:
+- **`PilaGUI.java`** - Clase principal que inicia la aplicación (paquete raíz)
+- **`controller/PilaController.java`** - Controlador que maneja la lógica de la interfaz
+- **`view/PilaView.fxml`** - Vista FXML que define la estructura visual
+- **`model/Pila.java`** - Modelo que implementa la estructura de datos pila
+- **`model/Publicacion.java`** - Modelo que representa una publicación
+
+### Arquitectura MVC con FXML:
+
+**Model (Modelo) - Paquete `model`:**
+- `model/Pila.java`: Gestiona las operaciones de la pila (apilar, desapilar, ver tope, etc.)
+- `model/Publicacion.java`: Representa los objetos que se almacenan en la pila
+
+**View (Vista) - Paquete `view`:**
+- `view/PilaView.fxml`: Define la interfaz gráfica usando XML declarativo
+
+**Controller (Controlador) - Paquete `controller`:**
+- `controller/PilaController.java`: Conecta la vista con el modelo, maneja eventos y actualiza la interfaz
 
 ## Características
 
@@ -73,10 +93,49 @@ Una vez configurado JavaFX:
 - Indica si la pila está vacía o contiene elementos
 - Muestra el número total de elementos en la pila
 
+## Ventajas del uso de FXML
+
+### Separación de responsabilidades:
+- **Vista**: Definida completamente en XML (PilaView.fxml)
+- **Lógica**: Concentrada en el controlador Java (PilaController.java)
+- **Modelo**: Independiente de la interfaz (Pila.java, Publicacion.java)
+
+### Beneficios:
+1. **Mantenimiento más fácil**: Cambios visuales sin tocar código Java
+2. **Diseño declarativo**: Interfaz más clara y legible
+3. **Reutilización**: Componentes pueden ser reutilizados
+4. **Colaboración**: Diseñadores pueden trabajar en FXML independientemente
+5. **Herramientas**: Compatible con Scene Builder para diseño visual
+
 ## Validaciones
 
 - Todos los campos (código, título, mensaje) son obligatorios
 - Alertas informativas para operaciones exitosas
+- Confirmaciones para operaciones destructivas
+- Manejo de excepciones para operaciones en pila vacía
+
+## Estructura de archivos organizada por paquetes
+```
+src/
+├── PilaGUI.java              # Clase principal (Application)
+├── module-info.java          # Configuración de módulos JavaFX
+├── controller/
+│   └── PilaController.java   # Controlador MVC con @FXML
+├── view/
+│   └── PilaView.fxml         # Definición XML de la interfaz
+└── model/
+    ├── Pila.java             # Modelo de la pila
+    └── Publicacion.java      # Modelo de publicación
+```
+
+## Beneficios de la organización por paquetes
+
+✅ **Separación clara de responsabilidades por capas**
+✅ **Código más mantenible y escalable**  
+✅ **Facilita el trabajo en equipo**
+✅ **Estructura estándar de la industria**
+✅ **Mejor encapsulamiento**
+✅ **Facilita pruebas unitarias por capa**
 - Alertas de error para operaciones inválidas (ejemplo: desapilar pila vacía)
 - Confirmación antes de limpiar la pila completamente
 

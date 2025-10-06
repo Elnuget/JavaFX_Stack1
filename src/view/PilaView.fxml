@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PilaController">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <spacing>10.0</spacing>
+   
+   <!-- Panel de entrada de datos -->
+   <VBox spacing="10.0" style="-fx-border-color: gray; -fx-border-width: 1;">
+      <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+      
+      <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Nueva Publicación" />
+      
+      <GridPane hgap="10.0" vgap="10.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="NEVER" />
+            <ColumnConstraints hgrow="ALWAYS" />
+         </columnConstraints>
+         
+         <!-- Código -->
+         <Label text="Código:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+         <TextField fx:id="txtCodigo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+         
+         <!-- Título -->
+         <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+         <TextField fx:id="txtTitulo" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         
+         <!-- Mensaje -->
+         <Label text="Mensaje:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+         <TextArea fx:id="txtMensaje" prefRowCount="3" prefWidth="300.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      </GridPane>
+   </VBox>
+   
+   <!-- Panel central con botones y resultados -->
+   <HBox spacing="10.0">
+      
+      <!-- Panel de botones -->
+      <VBox prefWidth="250.0" spacing="10.0" style="-fx-border-color: gray; -fx-border-width: 1;">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         
+         <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Operaciones" />
+         
+         <GridPane hgap="10.0" vgap="10.0">
+            <columnConstraints>
+               <ColumnConstraints hgrow="ALWAYS" />
+               <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            
+            <!-- Primera fila de botones -->
+            <Button fx:id="btnApilar" onAction="#apilarPublicacion" prefWidth="120.0" text="Apilar Publicación" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Button fx:id="btnDesapilar" onAction="#desapilarPublicacion" prefWidth="120.0" text="Desapilar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            
+            <!-- Segunda fila de botones -->
+            <Button fx:id="btnVerTope" onAction="#verTope" prefWidth="120.0" text="Ver Tope" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Button fx:id="btnLimpiar" onAction="#limpiarPila" prefWidth="120.0" text="Limpiar Pila" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </GridPane>
+      </VBox>
+      
+      <!-- Panel de resultados -->
+      <VBox spacing="10.0" style="-fx-border-color: gray; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         
+         <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Contenido de la Pila" />
+         
+         <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+            <TextArea fx:id="txtResultado" editable="false" prefHeight="300.0" prefWidth="350.0" style="-fx-font-family: monospace;" />
+         </ScrollPane>
+      </VBox>
+   </HBox>
+   
+   <!-- Panel de estado -->
+   <HBox style="-fx-border-color: gray; -fx-border-width: 1;">
+      <padding>
+         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+      </padding>
+      
+      <Label fx:id="lblEstado" style="-fx-font-size: 12px;" text="Pila vacía - Elementos: 0" />
+   </HBox>
+</VBox>
